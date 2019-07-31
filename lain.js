@@ -91,6 +91,34 @@ client.on('message', message => {
         }
 
     }
+    else if (message.content.startsWith(prefix + "color")) {
+        let bits = message.content.split(" ");
+        let rolesNotToAssign = ["Admins", "Moderators"]
+        if (bits.length == 1) {
+            message.channel.send("You need to specify a color");
+        }
+        else {
+            if (bits[1] === "remove") {
+                let role = message.guild.roles.find(r => r.name === bits[2]);
+                let member = message.member;
+                member.removeRole(role).catch(message.channel.send("Something went wrong ,check spelling."));
+            }
+            else {
+                for (let i = 0; i < rolesNotToAssign.length; i++) {
+                    if (bits[1] == rolesNotToAssign[i]) {
+                        message.channel.send("You can't assign yourself this role.");
+                        break;
+                    }
+                    else {
+                        let role = message.guild.roles.find(r => r.name === bits[1]);
+                        let member = message.member;
+                        member.addRole(role).catch(message.channel.send("Something went wrong ,check spelling."));
+                    }
+                }
+            }
+        }
+
+    }
 
 
 });
