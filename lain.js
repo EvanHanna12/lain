@@ -1,8 +1,10 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const config = require("./config.json");
+client.music = require("discord.js-musicbot-addon");
 
 
-const botOwner = "600189385765289986";
+let botOwner = config.ownerId;
 let botToken = null;
 try {
     botToken = process.argv[2];
@@ -23,6 +25,25 @@ client.on('ready', () => {
     });
 
 });
+client.music.start(client, {
+    // Set the api key used for YouTube.
+    youtubeKey: config.youtubeToken,
+    play: {
+        // Usage text for the help command.
+        usage: "!play some tunes",
+        // Whether or not to exclude the command from the help command.
+        exclude: false
+    },
+
+    anyoneCanSkip: true,
+
+    ownerOverMember: true,
+    ownerID: botOwner,
+
+    cooldown: {
+        enabled: false
+    }
+});
 client.on("guildMemberAdd", (member) => {
     const guild = member.guild;
     guild.channels.find(channel => channel.name === "server-log").send(member.user + " just connected to the wired!");
@@ -39,7 +60,7 @@ client.on('message', message => {
     if (message.author.bot)
         return;
 
-    let prefix = ">";
+    let prefix = config.botPrefix;
     if (message.content.startsWith(prefix + "avatar")) {
         let user = message.mentions.users.first() || message.author;
         let avatarEmbed = new Discord.RichEmbed()
@@ -48,7 +69,10 @@ client.on('message', message => {
             .setImage(user.avatarURL);
         message.channel.send(avatarEmbed);
     }
+    else if (message.content.startsWith(prefix + "play")) {
+        client.music.bot.playFunction(message, prefix);
 
+    }
     else if (message.content.startsWith(prefix + "kick")) {
         let userToKick = message.mentions.users.first() || "";
         if (userToKick === "") {
@@ -90,6 +114,24 @@ client.on('message', message => {
             }
         }
 
+    }
+
+    else if (message.content.startsWith(prefix + "help")) {
+        let helpEmbed = new Discord.RichEmbed()
+            .setTitle("List of commands for Lain")
+            .setAuthor(client.user.username)
+            .setColor(0x00AE86)
+            .setDescription("\n- >help : What you're reading right now.\n- >avatar : Get a direct link to your avatar or a mentioned user\n- >ban : ban a specified user \n- >kick : kick a specified user \n- >color : assign yourself a cool color (optional paramater \"remove\" to remove an already assigned color.)- \n!help : Shows the help dialog for the music add-on")
+            .setThumbnail(client.user.avatarURL)
+            .setTimestamp()
+            .setURL("https://discord.js.org/#/docs/main/indev/class/RichEmbed")
+            message.channel.send(helpEmbed);
+
+    }
+    else if (message.content.startsWith(prefix + "8ball")){
+        let answers = ["Probably", "No.", "What kind of question is that?", "Press X to doubt.", "Worship me and I might give you an honest answer.", "Yes.", "I guess.", "Most certainely.", "Fortunately yes."];
+        let botAnswer = answers[Math.floor(Math.random() * answers.length)];
+        message.channel.send(botAnswer);
     }
     else if (message.content.startsWith(prefix + "color")) {
         let bits = message.content.split(" ");
