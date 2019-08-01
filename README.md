@@ -15,7 +15,7 @@ A simple, yet efficient bot for discord.
 - cd into
 
 - npm i
-
-- node lain.js yourTokenAsArgument
+- Setting up the with the provided config.json file.
+- node lain.js 
 
 

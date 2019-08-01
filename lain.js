@@ -5,13 +5,6 @@ client.music = require("discord.js-musicbot-addon");
 
 
 let botOwner = config.ownerId;
-let botToken = null;
-try {
-    botToken = process.argv[2];
-}
-catch (e) {
-    console.log("You need to specify a token for the bot.");
-}
 
 
 client.on('ready', () => {
@@ -106,7 +99,7 @@ client.on('message', message => {
                 member.ban().then((member) => {
                     message.channel.send(":wave: The user has been successfully banned !");
                 }).catch(() => {
-                    console.log("Dickies");
+                    console.log("Something went wrong!");
                 });
             }
             else {
@@ -143,7 +136,7 @@ client.on('message', message => {
             if (bits[1] === "remove") {
                 let role = message.guild.roles.find(r => r.name === bits[2]);
                 let member = message.member;
-                member.removeRole(role).catch(message.channel.send("Something went wrong ,check spelling."));
+                member.removeRole(role).catch(console.error);
             }
             else {
                 for (let i = 0; i < rolesNotToAssign.length; i++) {
@@ -154,7 +147,7 @@ client.on('message', message => {
                     else {
                         let role = message.guild.roles.find(r => r.name === bits[1]);
                         let member = message.member;
-                        member.addRole(role).catch(message.channel.send("Something went wrong ,check spelling."));
+                        member.addRole(role).catch(console.error);
                     }
                 }
             }
@@ -164,4 +157,4 @@ client.on('message', message => {
 
 
 });
-client.login(botToken);
+client.login(config.botToken);
