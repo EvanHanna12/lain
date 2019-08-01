@@ -111,7 +111,7 @@ client.on('message', message => {
             .setTitle("List of commands for Lain")
             .setAuthor(client.user.username)
             .setColor(0x00AE86)
-            .setDescription("\n- >help : What you're reading right now.\n- >avatar : Get a direct link to your avatar or a mentioned user\n- >ban : ban a specified user \n- >kick : kick a specified user \n- >color : assign yourself a cool color (optional paramater \"remove\" to remove an already assigned color.)\n- !help : Shows the help dialog for the music add-on")
+            .setDescription("\n- >help : What you're reading right now.\n- >avatar : Get a direct link to your avatar or a mentioned user\n- >ban : ban a specified user \n- >kick : kick a specified user \n- >color : assign yourself a cool color (optional paramater \"remove\" to remove an already assigned color.)\n- !help : Shows the help dialog for the music add-on\n- >8ball your question : ask the bot a question")
             .setThumbnail(client.user.avatarURL)
             .setTimestamp()
             .setURL("https://discord.js.org/#/docs/main/indev/class/RichEmbed")
@@ -125,7 +125,7 @@ client.on('message', message => {
     }
     else if (message.content.startsWith(prefix + "color")) {
         let bits = message.content.split(" ");
-        let rolesNotToAssign = ["Admins", "Moderators"]
+        let rolesNotToAssign = ["Admins", "Moderators", "cat's bot", "Kiddo in bear suit"]
         if (bits.length == 1) {
             message.channel.send("You need to specify a color");
         }

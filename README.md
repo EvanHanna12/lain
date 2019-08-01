@@ -26,6 +26,7 @@ A simple, yet efficient bot for discord.
 - >ban : ban a specified user 
 - >kick : kick a specified user 
 - >color : assign yourself a cool color (optional paramater "remove" to remove an already assigned color.)
+- >8ball : ask the bot a question
 - !help : Shows the help dialog for the music add-on
 ```
 
