@@ -19,12 +19,9 @@ client.on('ready', () => {
 
 });
 client.music.start(client, {
-    // Set the api key used for YouTube.
     youtubeKey: config.youtubeToken,
     play: {
-        // Usage text for the help command.
         usage: "!play some tunes",
-        // Whether or not to exclude the command from the help command.
         exclude: false
     },
 
@@ -114,14 +111,14 @@ client.on('message', message => {
             .setTitle("List of commands for Lain")
             .setAuthor(client.user.username)
             .setColor(0x00AE86)
-            .setDescription("\n- >help : What you're reading right now.\n- >avatar : Get a direct link to your avatar or a mentioned user\n- >ban : ban a specified user \n- >kick : kick a specified user \n- >color : assign yourself a cool color (optional paramater \"remove\" to remove an already assigned color.)- \n!help : Shows the help dialog for the music add-on")
+            .setDescription("\n- >help : What you're reading right now.\n- >avatar : Get a direct link to your avatar or a mentioned user\n- >ban : ban a specified user \n- >kick : kick a specified user \n- >color : assign yourself a cool color (optional paramater \"remove\" to remove an already assigned color.)\n- !help : Shows the help dialog for the music add-on")
             .setThumbnail(client.user.avatarURL)
             .setTimestamp()
             .setURL("https://discord.js.org/#/docs/main/indev/class/RichEmbed")
-            message.channel.send(helpEmbed);
+        message.channel.send(helpEmbed);
 
     }
-    else if (message.content.startsWith(prefix + "8ball")){
+    else if (message.content.startsWith(prefix + "8ball")) {
         let answers = ["Probably", "No.", "What kind of question is that?", "Press X to doubt.", "Worship me and I might give you an honest answer.", "Yes.", "I guess.", "Most certainely.", "Fortunately yes."];
         let botAnswer = answers[Math.floor(Math.random() * answers.length)];
         message.channel.send(botAnswer);
