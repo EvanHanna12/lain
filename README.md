@@ -15,7 +15,7 @@ A simple, yet efficient bot for discord.
 - cd into
 
 - npm i
-- Setting up the with the provided config.json file.
+- Setting up the bot with the provided config.json file.
 - node lain.js 
 
 
